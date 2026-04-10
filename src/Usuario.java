@@ -1,27 +1,46 @@
 import java.util.ArrayList;
 
 public class Usuario {
-    String nome;
-    ArrayList<Playlist> playlists = new ArrayList<>();
+    private String nome;
+    private ArrayList<Playlist> playlists = new ArrayList<>();
 
-    void criarPlaylist(String nome) {
-        Playlist nova = new Playlist();
-        nova.nome = nome;
-        this.playlists.add(nova);
+    public Usuario() {}
+
+    public Usuario(String nome) {
+        setNome(nome);
     }
 
-    Playlist getPlaylist(int indice) {
+    public String getNome() { return nome; }
+    public void setNome(String nome) {
+        if (nome != null && !nome.isEmpty()) {
+            this.nome = nome;
+        }
+    }
+
+    public void criarPlaylist(String nome) {
+        if (nome != null && !nome.isEmpty()) {
+            this.playlists.add(new Playlist(nome));
+        }
+    }
+
+    public void adicionarPlaylist(Playlist p) {
+        if (p != null) {
+            this.playlists.add(p);
+        }
+    }
+
+    public Playlist getPlaylist(int indice) {
         if (indice >= 0 && indice < this.playlists.size()) {
             return this.playlists.get(indice);
         }
         return null;
     }
 
-    void listarPlaylists() {
+    public void listarPlaylists() {
         System.out.println("\n--- Playlists de " + this.nome + " ---");
         for (int i = 0; i < this.playlists.size(); i++) {
             Playlist p = this.playlists.get(i);
-            System.out.println((i + 1) + ". " + p.nome + " (" + p.getQuantidadeMusicas() + " músicas)");
+            System.out.println((i + 1) + ". " + p.getNome() + " (" + p.getQuantidadeMusicas() + " músicas)");
         }
     }
 }

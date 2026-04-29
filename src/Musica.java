@@ -38,6 +38,8 @@ public class Musica {
     }
 
     public String getGenero() { return genero; }
+
+    // só aceito generos que estão na lista de válidos
     public void setGenero(String genero) {
         this.genero = null;
         List<String> validos = Arrays.asList("Pop", "Rock", "Jazz", "Eletrônica", "Hip-Hop", "Clássica");
@@ -48,7 +50,6 @@ public class Musica {
             }
         }
     }
-
 
     public void exibir() {
         System.out.println(this.titulo + " - " + this.artista + " [" + this.genero + "] | " + getDuracaoFormatada());

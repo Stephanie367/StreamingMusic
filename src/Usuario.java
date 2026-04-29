@@ -17,8 +17,9 @@ public class Usuario {
         setEmail(email);
     }
 
+    // esse método vai ser sobrescrito nas subclasses com @Override
     public void reproduzirMusica(Musica musica) {
-        System.out.println("Reproduzindo: " + musica.getTitulo());
+        System.out.println("▶ Reproduzindo: " + musica.getTitulo());
         historicoReproducao.add(musica);
     }
 
@@ -33,6 +34,15 @@ public class Usuario {
         }
     }
 
+    // sobrescrito em cada subclasse para retornar o tipo correto
+    public String getTipoUsuario() {
+        return "Usuario";
+    }
+
+    public int getTotalReproducoes() {
+        return historicoReproducao.size();
+    }
+
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
     public String getEmail() { return email; }
@@ -43,8 +53,14 @@ public class Usuario {
         return null;
     }
 
+    public ArrayList<Playlist> getPlaylists() { return playlists; }
+
     public void listarPlaylists() {
         System.out.println("\n--- Playlists de " + this.nome + " ---");
+        if (playlists.isEmpty()) {
+            System.out.println("Nenhuma playlist criada.");
+            return;
+        }
         for (int i = 0; i < playlists.size(); i++) {
             System.out.println((i + 1) + ". " + playlists.get(i).getNome());
         }

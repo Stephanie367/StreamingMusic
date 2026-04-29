@@ -1,19 +1,26 @@
 import java.util.ArrayList;
 
 public class UsuarioPremium extends Usuario {
-    private String tipoPlano;
+
+    private String plano;
     private ArrayList<Musica> musicasBaixadas;
 
     public UsuarioPremium(String nome, String email, String plano) {
         super(nome, email);
-        this.tipoPlano = plano;
+        this.plano = plano;
         this.musicasBaixadas = new ArrayList<>();
     }
 
+    // sobrescrevo o método para que o Premium reproduza em alta qualidade e sem anuncios
     @Override
     public void reproduzirMusica(Musica musica) {
         System.out.println("[ALTA QUALIDADE] Reproduzindo: " + musica.getTitulo());
         historicoReproducao.add(musica);
+    }
+
+    @Override
+    public String getTipoUsuario() {
+        return "Premium";
     }
 
     public void baixarMusica(Musica musica) {
@@ -36,6 +43,7 @@ public class UsuarioPremium extends Usuario {
         }
     }
 
-    public String getTipoPlano() { return tipoPlano; }
-    public void setTipoPlano(String tipoPlano) { this.tipoPlano = tipoPlano; }
+    public String getPlano() { return plano; }
+    public void setPlano(String plano) { this.plano = plano; }
+    public ArrayList<Musica> getMusicasBaixadas() { return musicasBaixadas; }
 }

@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-
 public class UsuarioFree extends Usuario {
+
     private static final int MAX_PLAYLISTS = 3;
     private int contadorReproducoes;
     private int limiteReproducoes = 30;
@@ -10,6 +9,7 @@ public class UsuarioFree extends Usuario {
         this.contadorReproducoes = 0;
     }
 
+    // sobrescrevo o método da superclasse para adicionar as regras do usuario Free
     @Override
     public void reproduzirMusica(Musica musica) {
         if (contadorReproducoes >= limiteReproducoes) {
@@ -20,11 +20,17 @@ public class UsuarioFree extends Usuario {
 
         contadorReproducoes++;
 
+        // a cada 3 reproducoes exibo um anuncio
         if (contadorReproducoes % 3 == 0) {
             exibirAnuncio();
         }
 
         super.reproduzirMusica(musica);
+    }
+
+    @Override
+    public String getTipoUsuario() {
+        return "Free";
     }
 
     public void criarPlaylist(String nome) {
@@ -33,7 +39,7 @@ public class UsuarioFree extends Usuario {
             System.out.println("Assine o plano Premium para criar playlists ilimitadas.");
             return;
         }
-        playlists.add(new Playlist(nome));
+        playlists.add(new PlaylistPersonalizada(nome, this.nome));
         System.out.println("Playlist criada com sucesso.");
     }
 
@@ -42,4 +48,6 @@ public class UsuarioFree extends Usuario {
         System.out.println("ANUNCIO: Assine Premium e ouca sem interrupcoes!");
         System.out.println("==================================================\n");
     }
+
+    public int getContadorReproducoes() { return contadorReproducoes; }
 }

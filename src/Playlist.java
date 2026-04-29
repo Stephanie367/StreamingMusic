@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 
 public class Playlist {
-    private String nome;
-    private ArrayList<Musica> musicas = new ArrayList<>();
+    protected String nome;
+    protected ArrayList<Musica> musicas = new ArrayList<>();
+    protected String descricao;
 
     public Playlist() {}
 
@@ -20,6 +21,9 @@ public class Playlist {
         }
     }
 
+    public String getDescricao() { return descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
+
     public ArrayList<Musica> getMusicas() { return musicas; }
 
     public void adicionarMusica(Musica musica) {
@@ -31,6 +35,14 @@ public class Playlist {
     public void removerMusica(int indice) {
         if (indice >= 0 && indice < this.musicas.size()) {
             this.musicas.remove(indice);
+        }
+    }
+
+    // método base que será sobrescrito nas subclasses
+    public void reproduzir() {
+        System.out.println("🎵 Reproduzindo playlist: " + nome);
+        for (Musica m : musicas) {
+            System.out.println("  ▶ " + m.getTitulo());
         }
     }
 

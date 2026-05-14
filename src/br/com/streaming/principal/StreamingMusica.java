@@ -1,3 +1,7 @@
+package br.com.streaming.principal;
+
+import br.com.streaming.modelo.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -145,6 +149,7 @@ public class StreamingMusica {
             System.out.println("11. Upgrade para Premium");
         }
 
+        System.out.println("13. Buscar Musica");
         System.out.println("0. Logout");
         System.out.print("Escolha: ");
     }
@@ -175,6 +180,7 @@ public class StreamingMusica {
                 }
                 break;
 
+            case 13: buscarMusica(); break;
             case 0: break;
             default: System.out.println("Opcao invalida.");
         }
@@ -223,7 +229,7 @@ public class StreamingMusica {
         pa.atualizar(listaGeral);
         System.out.println("Playlist criada com " + pa.getQuantidadeMusicas() + " musicas!");
 
-        usuarioLogado.playlists.add(pa);
+        usuarioLogado.adicionarPlaylist(pa);
 
         System.out.print("\nDeseja reproduzir agora? (1-Sim / outro-Nao): ");
         if (lerOpcao() == 1) {
@@ -355,14 +361,14 @@ public class StreamingMusica {
         if (usuarioLogado instanceof UsuarioFree) {
             ((UsuarioFree) usuarioLogado).criarPlaylist(nomeP);
         } else {
-            usuarioLogado.playlists.add(new PlaylistPersonalizada(nomeP, usuarioLogado.getNome()));
+            usuarioLogado.adicionarPlaylist(new PlaylistPersonalizada(nomeP, usuarioLogado.getNome()));
             System.out.println("Playlist criada.");
         }
     }
 
     public static void gerenciarPlaylists() {
         usuarioLogado.listarPlaylists();
-        if (usuarioLogado.playlists.isEmpty()) {
+        if (usuarioLogado.getPlaylists().isEmpty()) {
             System.out.println("Voce nao tem playlists criadas.");
             return;
         }
@@ -402,6 +408,41 @@ public class StreamingMusica {
         }
     }
 
-    public static void inicializarDados() {
+    public static void buscarMusica() {
+    System.out.println("\n=== BUSCAR MUSICA ===");
+    System.out.println("1. Buscar por titulo");
+    System.out.println("2. Buscar por artista");
+    System.out.println("3. Filtrar por genero");
+    System.out.print("Escolha: ");
+    int opcao = lerOpcao();
+
+    System.out.print("Digite a busca: ");
+    String busca = scanner.nextLine();
+
+    // percorro a biblioteca filtrando conforme a opcao escolhida
+    ArrayList<Musica> encontradas = new ArrayList<>();
+    for (Musica m : listaGeral) {
+        if (opcao == 1 && m.contemTitulo(busca)) {
+            encontradas.add(m);
+        } else if (opcao == 2 && m.contemArtista(busca)) {
+            encontradas.add(m);
+        } else if (opcao == 3 && m.getGenero() != null &&
+                m.getGenero().equalsIgnoreCase(busca)) {
+            encontradas.add(m);
+        }
+    }
+
+    // exibo os resultados
+    System.out.println("\n--- RESULTADOS ---");
+    if (encontradas.isEmpty()) {
+        System.out.println("Nenhuma musica encontrada.");
+    } else {
+        System.out.println(encontradas.size() + " musica(s) encontrada(s):");
+        for (int i = 0; i < encontradas.size(); i++) {
+            System.out.print((i + 1) + ". ");
+            encontradas.get(i).exibir();
+        }
     }
 }
+    public static void inicializarDados() {
+}}

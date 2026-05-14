@@ -1,3 +1,5 @@
+package br.com.streaming.modelo;
+
 public class PlaylistPersonalizada extends Playlist {
 
     private String criador;
@@ -7,10 +9,9 @@ public class PlaylistPersonalizada extends Playlist {
         this.criador = criador;
     }
 
-    // sobrescrevo reproduzir() para mostrar que foi criada pelo usuario
     @Override
     public void reproduzir() {
-        System.out.println("🎵 Playlist Personalizada: " + getNome() + " (criada por " + criador + ")");
+        System.out.println("Playlist Personalizada: " + getNome() + " (criada por " + criador + ")");
         for (Musica m : getMusicas()) {
             System.out.println("  ▶ " + m.getTitulo());
         }

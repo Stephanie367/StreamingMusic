@@ -1,3 +1,5 @@
+package br.com.streaming.modelo;
+
 public class UsuarioFree extends Usuario {
 
     private static final int MAX_PLAYLISTS = 3;
@@ -9,7 +11,6 @@ public class UsuarioFree extends Usuario {
         this.contadorReproducoes = 0;
     }
 
-    // sobrescrevo o método da superclasse para adicionar as regras do usuario Free
     @Override
     public void reproduzirMusica(Musica musica) {
         if (contadorReproducoes >= limiteReproducoes) {
@@ -20,7 +21,6 @@ public class UsuarioFree extends Usuario {
 
         contadorReproducoes++;
 
-        // a cada 3 reproducoes exibo um anuncio
         if (contadorReproducoes % 3 == 0) {
             exibirAnuncio();
         }

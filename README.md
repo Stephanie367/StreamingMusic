@@ -67,7 +67,7 @@ java -cp out br.com.streaming.principal.StreamingMusica
 ## Autor
 
 - Nome: Stephanie Vitoria Bessa dos Santos
-- RA: 45619930
+- RGM: 45619930
 - Universidade: Braz Cubas
 - Professor: Davi de Oliveira
 
